@@ -25,7 +25,6 @@ const Auth = ({ children }) => (
 				</Row>
 			</Container>
 		</Main>
-		<Settings />
 	</React.Fragment>
 );
 
