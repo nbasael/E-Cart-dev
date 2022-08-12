@@ -17,7 +17,7 @@ const Sidebar = ({ items, showFooter = true }) => {
 				<PerfectScrollbar>
 					<a className="sidebar-brand" href="/v1/home">
 						<span className="align-middle me-3">
-							<FontAwesomeIcon icon={faCartArrowDown} /> 
+							<FontAwesomeIcon icon={faCartArrowDown} />
 							E-Cart Dev
 						</span>
 					</a>
