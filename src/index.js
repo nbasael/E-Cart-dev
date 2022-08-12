@@ -1,19 +1,19 @@
-import "react-app-polyfill/stable";
+import 'react-app-polyfill/stable';
 
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import reportWebVitals from "./utils/reportWebVitals";
-import App from "./App";
+import reportWebVitals from './utils/reportWebVitals';
+import App from './App';
 
-import "./mocks";
+import './mocks';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById("root")
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>,
+	document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
