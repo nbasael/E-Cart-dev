@@ -1,3 +1,6 @@
 {
-  "endOfLine":"auto"
+  	"endOfLine":"auto",
+    "useTabs": true,
+    "tabWidth": 4,
+    "singleQuote": true
 }
