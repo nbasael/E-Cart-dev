@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'react-bootstrap';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faPalette } from '@fortawesome/free-solid-svg-icons';
 
 // Controles del sidebar
 import { useLocation } from 'react-router-dom';
@@ -25,7 +25,7 @@ const themeOptions = [
 		value: THEME.DEFAULT,
 	},
 	{
-		name: 'Colored',
+		name: 'Colorido',
 		value: THEME.COLORED,
 	},
 	{
@@ -40,11 +40,11 @@ const themeOptions = [
 
 const sidebarPositionOptions = [
 	{
-		name: 'Left',
+		name: 'Izquierda',
 		value: SIDEBAR_POSITION.LEFT,
 	},
 	{
-		name: 'Right',
+		name: 'Derecha',
 		value: SIDEBAR_POSITION.RIGHT,
 	},
 ];
@@ -55,22 +55,22 @@ const sidebarBehaviorOptions = [
 		value: SIDEBAR_BEHAVIOR.STICKY,
 	},
 	{
-		name: 'Fixed',
+		name: 'Fijo',
 		value: SIDEBAR_BEHAVIOR.FIXED,
 	},
 	{
-		name: 'Compact',
+		name: 'Compacto',
 		value: SIDEBAR_BEHAVIOR.COMPACT,
 	},
 ];
 
 const layoutOptions = [
 	{
-		name: 'Fluid',
+		name: 'Completo',
 		value: LAYOUT.FLUID,
 	},
 	{
-		name: 'Boxed',
+		name: 'En caja',
 		value: LAYOUT.BOXED,
 	},
 ];
@@ -78,38 +78,50 @@ const layoutOptions = [
 const useQuery = () => new URLSearchParams(useLocation().search);
 
 export const Config = () => {
+	const [isOpen, setIsOpen] = useState(false);
 
-    const [ isOpen, setIsOpen ] = useState(false);
-
-    const { theme, setTheme } = useTheme();
+	const query = useQuery();
+	const { theme, setTheme } = useTheme();
 	const { position, setPosition, behavior, setBehavior } = useSidebar();
 	const { layout, setLayout } = useLayout();
 
-    const innerRef = useOuterClick(() => {
+	const innerRef = useOuterClick(() => {
 		setIsOpen(false);
 	});
 
-    const setSettingByQueryParam = (name, set) => {
+	const setSettingByQueryParam = (name, set) => {
 		const value = query.get(name);
 		if (value) {
 			set(value);
 		}
 	};
 
-    return (
+	// Read from query parameter (e.g. ?theme=dark)
+	// only for demo purposes
+	useEffect(() => {
+		setSettingByQueryParam('theme', setTheme);
+		setSettingByQueryParam('sidebarPosition', setPosition);
+		setSettingByQueryParam('sidebarBehavior', setBehavior);
+		setSettingByQueryParam('layout', setLayout);
 
-        <>
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-            <Button 
-                variant="outline-primary" 
-                className="me-2 nav-item" 
-                align="end"
-                onClick={() => setIsOpen(true)}
-            >
-                <FontAwesomeIcon icon={faCog} />
-            </Button>
+	return (
+		<div
+			ref={innerRef}
+			className={`settings js-settings ${isOpen ? 'open' : ''}`}
+		>
+			<Button
+				variant="outline-primary"
+				className="me-2 nav-item"
+				align="end"
+				onClick={() => setIsOpen(true)}
+			>
+				<FontAwesomeIcon icon={faCog} />
+			</Button>
 
-            <div className="settings-panel">
+			<div className="settings-panel">
 				<div className="settings-content">
 					<div className="settings-title d-flex align-items-center">
 						<button
@@ -119,17 +131,21 @@ export const Config = () => {
 							onClick={() => setIsOpen(false)}
 						></button>
 						<h4 className="mb-0 ms-2 d-inline-block">
-							Theme Builder
+							<FontAwesomeIcon
+								icon={faPalette}
+								className="me-1"
+							/>{' '}
+							Personalize su web!
 						</h4>
 					</div>
 					<div className="settings-body">
-
 						<div className="mb-3">
 							<span className="d-block font-size-lg fw-bold">
-								Color scheme
+								Tema de la pagina
 							</span>
 							<span className="d-block text-muted mb-2">
-								The perfect color mode for your app.
+								Seleccione el color que desea que la web se
+								presente.
 							</span>
 							<div className="row g-0 text-center mx-n1 mb-2">
 								{themeOptions.map(({ name, value }) => (
@@ -157,10 +173,10 @@ export const Config = () => {
 						<hr />
 						<div className="mb-3">
 							<span className="d-block font-size-lg fw-bold">
-								Sidebar position
+								Posicion de la barra lateral
 							</span>
 							<span className="d-block text-muted mb-2">
-								Toggle the position of the sidebar.
+								Seleccion en que posicion desea que la barra lateral se dibuje.
 							</span>
 							<div>
 								{sidebarPositionOptions.map(
@@ -187,10 +203,10 @@ export const Config = () => {
 						<hr />
 						<div className="mb-3">
 							<span className="d-block font-size-lg fw-bold">
-								Sidebar behavior
+								Comportamiento barra lateral
 							</span>
 							<span className="d-block text-muted mb-2">
-								Change the behavior of the sidebar.
+								Cambie el comportamiento de la barra lateral.
 							</span>
 							<div>
 								{sidebarBehaviorOptions.map(
@@ -217,10 +233,10 @@ export const Config = () => {
 						<hr />
 						<div className="mb-3">
 							<span className="d-block font-size-lg fw-bold">
-								Layout
+								Contenedor
 							</span>
 							<span className="d-block text-muted mb-2">
-								Toggle container layout system.
+								Seleccion como desea mostrar la web.
 							</span>
 							<div>
 								{layoutOptions.map(({ name, value }) => (
@@ -241,23 +257,8 @@ export const Config = () => {
 							</div>
 						</div>
 					</div>
-					<div className="settings-footer">
-						<div className="d-grid">
-							<Button
-								as="a"
-								rel="noreferrer"
-								href="https://themes.getbootstrap.com/product/appstack-react-admin-dashboard-template/"
-								target="_blank"
-								variant="primary"
-								size="lg"
-							>
-								Purchase
-							</Button>
-						</div>
-					</div>
 				</div>
 			</div>
-
-        </>
-    )
-}
+		</div>
+	);
+};
