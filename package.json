@@ -4,6 +4,7 @@
   "description": "E-Cart proyecto de prueba",
   "author": "Nahuel Basael Jimenez",
   "private": true,
+  "homepage": "https://nbasael.github.io/e-cart-dev",
   "scripts": {
     "sass:build": "sass src/assets/scss:public/css --load-path node_modules",
     "sass:watch": "sass --watch src/assets/scss:public/css --load-path node_modules",
