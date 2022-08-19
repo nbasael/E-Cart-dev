@@ -1,9 +1,8 @@
 {
-  "name": "appstack-react",
+  "name": "e-cart-react",
   "version": "2.2.0",
-  "description": "AppStack - React Admin & Dashboard Template",
-  "homepage": "https://nbasael.github.io/e-cart-dev",
-  "author": "Paul Laros <support@bootlab.io>",
+  "description": "E-Cart proyecto de prueba",
+  "author": "Nahuel Basael Jimenez",
   "private": true,
   "scripts": {
     "sass:build": "sass src/assets/scss:public/css --load-path node_modules",
