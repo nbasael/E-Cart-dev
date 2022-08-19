@@ -1,7 +1,4 @@
-import {
-	Home,
-	ShoppingCart
-} from 'react-feather';
+import { Home, ShoppingCart } from 'react-feather';
 
 const pagesSection = [
 	{

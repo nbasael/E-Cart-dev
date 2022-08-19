@@ -176,7 +176,8 @@ export const Config = () => {
 								Posicion de la barra lateral
 							</span>
 							<span className="d-block text-muted mb-2">
-								Seleccion en que posicion desea que la barra lateral se dibuje.
+								Seleccion en que posicion desea que la barra
+								lateral se dibuje.
 							</span>
 							<div>
 								{sidebarPositionOptions.map(
